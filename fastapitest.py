@@ -139,8 +139,11 @@ def db_check():
         db = SessionLocal()
         db.execute("SELECT 1")
         return {"message": "Połączenie z bazą danych działa poprawnie."}
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=10000)
     except Exception as e:
         return {"error": str(e)}
+
+if __name__ == "__main__":
+    try:
+        uvicorn.run(app, host="0.0.0.0", port=10000)
+    except Exception as e:
+        print(f"Error: {str(e)}")
