@@ -131,3 +131,12 @@ def get_pomodoro_stats():
         stats[session.task_id] = stats.get(session.task_id, 0) + 1
         total_time += session.end_time - session.start_time
     return {"sessions_per_task": stats, "total_time": str(total_time)}
+
+@app.get("/db-check")
+def db_check():
+    try:
+        db = SessionLocal()
+        db.execute("SELECT 1")
+        return {"message": "Połączenie z bazą danych działa poprawnie."}
+    except Exception as e:
+        return {"error": str(e)}
