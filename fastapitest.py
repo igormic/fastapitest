@@ -6,6 +6,7 @@ from sqlalchemy import create_engine, Column, Integer, String, Boolean, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
+import uvicorn
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./test.db")
 
@@ -138,5 +139,8 @@ def db_check():
         db = SessionLocal()
         db.execute("SELECT 1")
         return {"message": "Połączenie z bazą danych działa poprawnie."}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=10000)
     except Exception as e:
         return {"error": str(e)}
