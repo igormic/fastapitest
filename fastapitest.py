@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from sqlalchemy import create_engine, Column, Integer, String, Boolean, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.sql import text
 import os
 import uvicorn
 
@@ -137,7 +138,7 @@ def get_pomodoro_stats():
 def db_check():
     try:
         db = SessionLocal()
-        db.execute("SELECT 1")
+        db.execute(text("SELECT 1"))
         return {"message": "Połączenie z bazą danych działa poprawnie."}
     except Exception as e:
         return {"error": str(e)}
